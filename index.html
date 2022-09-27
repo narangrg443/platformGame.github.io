@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title></title>
+  <style>
+    body {
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" style="border :0px solid black;background:grey; max-width:100%;max-height:100%;"></canvas>
+
+  <script type="text/javascript" src="Map.js">
+  </script>
+  <script type="text/javascript" src="canvas.js">
+  </script>
+
+  <script type="text/javascript" src="key_event.js">
+  </script>
+
+  <script type="text/javascript" src="loadImage.js"></script>
+
+
+  <script type="text/javascript" src="player.js"></script>
+  <script type="text/javascript" src="touchButton.js"></script>
+  <script type="text/javascript">
+
+    //creating buttons
+
+
+
+    let rows = 9 //7/851=42.55
+    let cols = 20 //20/393=56.14
+    let boxX = 42.66//screen.availWidth/cols; //42.55=20/9
+    let boxY = 43.66//screen.availHeight/rows; //43.66
+    //  console.log(boxX, boxY)
+    let STAGE = 0;
+    let player = new Player(0, 0, boxX-4, boxY-4);
+    let Brick = [];
+    let Enemy = [];
+    let Coins = [];
+    let Back = [];
+    let WoodenBox = [];
+
+
+    let coins_No = 0;
+
+    let point1 = 42.55*20; //851
+    const Map_width = 851;
+    let MapNo = 0;
+    let dist = 0;
+    let collisionSide = "";
+    let no = 0;
+    let coinsNo = 0;
+    let bug1No = 0;
+    let Map_stage = 1;
+    let objAssigned = false;
+    let Bulet = [];
+    let fired = false;
+    let Map = 1;
+    let delay = 0;
+    //
+    let P = []; //brick pieces
+    let b_dx; let b_dy; Brick_animate = false; // location of collidied brick
+    window.onload = animate();
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      //  if (no < 40) {
+
+      canvas.width = screen.availWidth;
+      canvas.height = screen.availHeight;
+
+
+
+
+      //  }
+      //    if (window.onresize)no = 0;
+      //froce to make landsscape mode
+      if (window.innerHeight > window.innerWidth) {
+        alert ("please switch to landscape mode or simply rotate your device")
+
+
+      } else {
+        //after device is n landscape mode
+        if (canvas.width !== screen.availWidth) {
+
+          canvas.width = screen.availWidth;
+          canvas.height = screen.availHeight;
+
+        }
+      }
+
+      switch (STAGE) {
+        case 0:
+          drawStage1();
+          break;
+        case 1:
+
+          switch (Map) {
+          case 1: done(Mapa1, Brick, Enemy, Coins, WoodenBox); break;
+          case 2: done(Map2, Brick, Enemy, Coins, WoodenBox); break;
+          }
+
+          if (Map == 1 && player.x+player.w >= 850 && MapNo == Mapa1.length-1) {
+            Map = 2; MapNo = 0; objAssigned = false;
+          }
+          if (player.y > 390) {
+            player.visible = false;
+            player.life--;
+          }
+          if (!player.visible && player.life) {
+
+            for (let e of Brick) {
+              if (e.x > 100 && e.x < 400) {
+                player.x = e.x-Math.random()*140-130;
+                player.y = 110;
+              }
+            }
+            //  player.x = 30;
+            //      player.y = Math.random()*400;
+            key.space = false;
+            player.visible = true;
+            player.dead = false;
+          }//resteart from same positon
+
+          if (!player.visible && Map == 1 && player.life == 0) {
+            //restart from the map
+            Map = 1; objAssigned = false; MapNo = 0; player.dead = false;
+            key.space = false;
+
+            player.visible = true;
+            player.life = 3;
+          } else if (!player.visible && !player.life && Map == 2) {
+            Map = 2; objAssigned = false; MapNo = 0;
+            player.visible = true;
+            player.dead = false;
+            key.space = false;
+            player.life = 3;
+          }
+
+          //wehen killed
+
+
+          // starting 2nd ma
+          //if(Brick_animate)BrickAnimate();
+          keyControl();
+          // find ths collsiiosn detecton of player and boxes
+          //all the physic works here
+          fire(0);
+          collisionCheck(player, Brick, Enemy, Coins);
+          BrickAnimate();
+
+          gravity(player);
+          jump(player);
+
+
+          renderImage();
+          showText(1);
+
+          if (coins_No == 10) {
+            player.life++; coins_No = 0;
+          }
+          drawHeart(player.life);
+          scoreboard();
+          drawButton();
+
+          break;
+      }
+      window.requestAnimationFrame(animate);
+    }
+    key_event(key)
+  </script>
+
+  <script type="text/javascript" src="physic.js"></script>
+  <script type="text/javascript" src="assignElement.js"></script>
+
+
+</body>
+</html>
