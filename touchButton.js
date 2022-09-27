@@ -102,7 +102,6 @@ this.a.x=this.x-this.X; this.a.y=this.y-this.Y
        
        
        
-      touchEvent(B,key);
       
     function touchEvent(B,key){  
       
@@ -250,7 +249,7 @@ B.forEach(btn=>{
 
     
    
-    function rect_C(r1,r2){
+  /*  function rect_C(r1,r2){
     let collisionSide="";
     
     let totalX=r1.w/2+r2.w/2;
@@ -308,7 +307,7 @@ B.forEach(btn=>{
     
     
     
-     }
+     }*/
     
   
   
