@@ -4,6 +4,13 @@
       Enemy=e;
       WoodenBox=w;
       if (!objAssigned) {
+      B=[new TouchButton(100,300,20,"analog"),new TouchButton(screen.availWidth-150,300,30,"button"),new TouchButton(screen.availWidth-50,280,30,"button")];
+
+
+ B[0].code="analog";
+ B[1].code="B";
+ B[2].code="A";
+        
     player.vy=0;
     player.dead=false;
     while(Bulet.length){
