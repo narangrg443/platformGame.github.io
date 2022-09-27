@@ -10,7 +10,8 @@
  B[0].code="analog";
  B[1].code="B";
  B[2].code="A";
-        
+         touchEvent(B,key);
+     
     player.vy=0;
     player.dead=false;
     while(Bulet.length){
