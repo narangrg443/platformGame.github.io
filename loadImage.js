@@ -24,7 +24,7 @@
       for (let i = 0; i < imageName.length; i++) {
 
         Images[imageName[i]] = new Image();
-   Images[imageName[i]].src = "img/"+filePath[i];
+   Images[imageName[i]].src = "IMG/"+filePath[i];
 
       }
   let Img1 = Images;
