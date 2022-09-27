@@ -100,13 +100,6 @@ this.a.x=this.x-this.X; this.a.y=this.y-this.Y
   }
   
        
-let B=[new TouchButton(100,300,20,"analog"),new TouchButton(screen.availWidth-150,300,30,"button"),new TouchButton(screen.availWidth-50,280,30,"button")];
-
-
- B[0].code="analog";
- B[1].code="B";
- B[2].code="A";
-        
        
        
       touchEvent(B,key);
